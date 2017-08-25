@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.woxthebox.draglistview.DragItemAdapter;
+import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
 import java.util.ArrayList;
 
@@ -50,9 +51,7 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        String text = mItemList.get(position).second;
-        holder.mText.setText(text);
-        holder.itemView.setTag(mItemList.get(position));
+        holder.bindData(mItemList.get(position));
     }
 
     @Override
@@ -62,6 +61,8 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
 
     class ViewHolder extends DragItemAdapter.ViewHolder {
         TextView mText;
+        boolean canDrag = true;
+        boolean canSwipe = true;
 
         ViewHolder(final View itemView) {
             super(itemView, mGrabHandleId, mDragOnLongPress);
@@ -69,7 +70,16 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
         }
 
         @Override
+        public boolean canDrag() {
+            return canDrag;
+        }
+
+        @Override
         public void onItemClicked(View view) {
+            if(view.getId() == R.id.item_right){
+                //delete
+                removeItem(getAdapterPosition());
+            }
             Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
         }
 
@@ -77,6 +87,23 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
         public boolean onItemLongClicked(View view) {
             Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
             return true;
+        }
+
+        public void bindData(Pair<Long, String> data) {
+            String text = data.second;
+            mText.setText(text);
+            itemView.setTag(data);
+            //for testing
+            canDrag = !text.contains("0");
+            canSwipe = !text.contains("0");
+            if (itemView instanceof ListSwipeItem) {
+                ListSwipeItem swipeView = (ListSwipeItem)itemView;
+                if (canSwipe) {
+                    swipeView.setSupportedSwipeDirection(ListSwipeItem.SwipeDirection.LEFT);
+                }else {
+                    swipeView.setSupportedSwipeDirection(ListSwipeItem.SwipeDirection.NONE);
+                }
+            }
         }
     }
 }

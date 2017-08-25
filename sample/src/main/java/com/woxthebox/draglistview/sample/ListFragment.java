@@ -17,6 +17,7 @@
 package com.woxthebox.draglistview.sample;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -83,7 +84,7 @@ public class ListFragment extends Fragment {
 
         mItemArray = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            mItemArray.add(new Pair<>((long) i, "Item " + i));
+            mItemArray.add(new Pair<>((long) i, "Sexy Item " + i));
         }
 
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
@@ -112,9 +113,9 @@ public class ListFragment extends Fragment {
 
                 // Swipe to delete on left
                 if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
-                    Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
-                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
-                    mDragListView.getAdapter().removeItem(pos);
+//                    Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
+//                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+//                    mDragListView.getAdapter().removeItem(pos);
                 }
             }
         });
@@ -201,7 +202,7 @@ public class ListFragment extends Fragment {
         public void onBindDragView(View clickedView, View dragView) {
             CharSequence text = ((TextView) clickedView.findViewById(R.id.text)).getText();
             ((TextView) dragView.findViewById(R.id.text)).setText(text);
-            dragView.findViewById(R.id.item_layout).setBackgroundColor(dragView.getResources().getColor(R.color.list_item_background));
+            dragView.findViewById(R.id.item_layout).setBackgroundColor(Color.argb(100,222,0,0));
         }
     }
 }

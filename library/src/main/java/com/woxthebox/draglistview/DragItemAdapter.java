@@ -19,6 +19,7 @@ package com.woxthebox.draglistview;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.Collections;
 import java.util.List;
@@ -163,7 +164,7 @@ public abstract class DragItemAdapter<T, VH extends DragItemAdapter.ViewHolder> 
                 mGrabView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent event) {
-                        if (mDragStartCallback == null) {
+                        if (mDragStartCallback == null || !canDrag()) {
                             return false;
                         }
 
@@ -179,12 +180,21 @@ public abstract class DragItemAdapter<T, VH extends DragItemAdapter.ViewHolder> 
                 });
             }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            View.OnClickListener clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClicked(view);
                 }
-            });
+            };
+
+            if (itemView instanceof ViewGroup) {
+                ViewGroup group = (ViewGroup) itemView;
+                for (int i = 0; i < group.getChildCount(); i++) {
+                    group.getChildAt(i).setOnClickListener(clickListener);
+                }
+            }
+
+            itemView.setOnClickListener(clickListener);
 
             if (itemView != mGrabView) {
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -204,6 +214,10 @@ public abstract class DragItemAdapter<T, VH extends DragItemAdapter.ViewHolder> 
 
         public void setDragStartCallback(DragStartCallback dragStartedListener) {
             mDragStartCallback = dragStartedListener;
+        }
+
+        public boolean canDrag(){
+            return true;
         }
 
         public void onItemClicked(View view) {

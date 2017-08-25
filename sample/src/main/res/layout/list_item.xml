@@ -28,23 +28,25 @@
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/item_layout"
         android:layout_alignTop="@+id/item_layout"
-        android:background="#ff0000"
+        android:background="#0066a1"
         android:gravity="start|center_vertical"
         android:padding="16dp"
-        android:text="Red"
+        android:text="Pin"
         android:textColor="@android:color/white"
         android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/item_right"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/item_layout"
         android:layout_alignTop="@+id/item_layout"
-        android:background="#0000ff"
+        android:background="#ff0000"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:gravity="end|center_vertical"
         android:padding="16dp"
-        android:text="Blue"
+        android:text="Delete"
         android:textColor="@android:color/white"
         android:textSize="20sp"/>
 
@@ -67,7 +69,8 @@
 
         <TextView
             android:id="@+id/text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#a3f"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
