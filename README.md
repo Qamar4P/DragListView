@@ -13,10 +13,10 @@ Youtube demo video<br>
 * Swipe list items
 
 ### Drag screenshot
-![gif](screenshots/wave_gif.gif) ![screenshot](screenshots/drag.png)
+![screenshot](screenshots/drag.png)
 
 ### Swipe screenshot
-![gif](screenshots/wave_gif.gif) ![screenshot](screenshots/swipe.png)
+![screenshot](screenshots/swipe.png)
 
 ## Download lib with gradle
 
