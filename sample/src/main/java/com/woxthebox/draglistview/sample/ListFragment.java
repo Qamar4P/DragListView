@@ -120,6 +120,18 @@ public class ListFragment extends Fragment {
             }
         });
 
+        mDragListView.setDragListCallback(new DragListView.DragListCallback() {
+            @Override
+            public boolean canDragItemAtPosition(int dragPosition) {
+                return dragPosition != 3;
+            }
+
+            @Override
+            public boolean canDropItemAtPosition(int dropPosition) {
+                return dropPosition != 1;
+            }
+        });
+
         setupListRecyclerView();
         return view;
     }

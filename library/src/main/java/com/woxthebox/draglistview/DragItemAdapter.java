@@ -164,7 +164,7 @@ public abstract class DragItemAdapter<T, VH extends DragItemAdapter.ViewHolder> 
                 mGrabView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent event) {
-                        if (mDragStartCallback == null || !canDrag()) {
+                        if (mDragStartCallback == null /*|| !canDrag()*/) {
                             return false;
                         }
 

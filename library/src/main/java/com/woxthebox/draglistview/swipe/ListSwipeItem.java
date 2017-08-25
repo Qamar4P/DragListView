@@ -162,6 +162,12 @@ public class ListSwipeItem extends RelativeLayout {
             x = 0;
         }
 
+//        if (getSwipedDirection() == SwipeDirection.LEFT) {
+//            return -mLeftView.getMeasuredWidth();
+//        }else if (getSwipedDirection() == SwipeDirection.RIGHT) {
+//            return -mRightView.getMeasuredWidth();
+//        }
+
         mSwipeTranslationX = x;
         mSwipeTranslationX = Math.min(mSwipeTranslationX, getMeasuredWidth());
         mSwipeTranslationX = Math.max(mSwipeTranslationX, -getMeasuredWidth());
@@ -270,7 +276,7 @@ public class ListSwipeItem extends RelativeLayout {
     }
 
     private float getTranslateToXPosition(float startTranslationX, float currentTranslationX, float flingSpeed) {
-        if (flingSpeed == 0 && Math.abs(startTranslationX - currentTranslationX) < getMeasuredWidth() / 3) {
+        if (flingSpeed == 0 && Math.abs(startTranslationX - currentTranslationX) < mRightView.getMeasuredWidth() / 2) {
             // Bounce back
             return startTranslationX;
         } else if (currentTranslationX < 0) {
@@ -278,19 +284,19 @@ public class ListSwipeItem extends RelativeLayout {
             if (flingSpeed > 0) {
                 return 0;
             } else {
-                return -getMeasuredWidth();
+                return -mRightView.getMeasuredWidth();
             }
         } else if (startTranslationX == 0) {
             // Swiping action side from start position
             if (flingSpeed < 0) {
                 return 0;
             } else {
-                return getMeasuredWidth();
+                return mRightView.getMeasuredWidth();
             }
         } else {
             // Swiping action side from action position
             if (flingSpeed > 0) {
-                return getMeasuredWidth();
+                return mRightView.getMeasuredWidth();
             } else {
                 return 0;
             }
