@@ -61,17 +61,10 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
 
     class ViewHolder extends DragItemAdapter.ViewHolder {
         TextView mText;
-        boolean canDrag = true;
-        boolean canSwipe = true;
 
         ViewHolder(final View itemView) {
             super(itemView, mGrabHandleId, mDragOnLongPress);
             mText = (TextView) itemView.findViewById(R.id.text);
-        }
-
-        @Override
-        public boolean canDrag() {
-            return canDrag;
         }
 
         @Override
@@ -94,8 +87,7 @@ class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHo
             mText.setText(text);
             itemView.setTag(data);
             //for testing
-            canDrag = !text.contains("0");
-            canSwipe = !text.contains("0");
+            boolean canSwipe = !text.contains("0");
             if (itemView instanceof ListSwipeItem) {
                 ListSwipeItem swipeView = (ListSwipeItem)itemView;
                 if (canSwipe) {

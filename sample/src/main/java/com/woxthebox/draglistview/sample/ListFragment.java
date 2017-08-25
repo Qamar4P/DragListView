@@ -123,12 +123,13 @@ public class ListFragment extends Fragment {
         mDragListView.setDragListCallback(new DragListView.DragListCallback() {
             @Override
             public boolean canDragItemAtPosition(int dragPosition) {
-                return dragPosition != 3;
+                return !mItemArray.get(dragPosition).second.contains("0");
             }
 
             @Override
             public boolean canDropItemAtPosition(int dropPosition) {
-                return dropPosition != 1;
+                Pair<Long, String> longStringPair = mItemArray.get(dropPosition);
+                return !(longStringPair.second.contains("1") || longStringPair.second.contains("0"));
             }
         });
 

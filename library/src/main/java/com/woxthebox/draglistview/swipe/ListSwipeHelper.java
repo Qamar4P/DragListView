@@ -92,18 +92,27 @@ public class ListSwipeHelper extends RecyclerView.OnScrollListener implements Re
         mGestureDetector.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                resetSwipedViews(null);
                 View swipeView = rv.findChildViewUnder(event.getX(), event.getY());
                 if (swipeView instanceof ListSwipeItem &&
                         ((ListSwipeItem) swipeView).getSupportedSwipeDirection() != ListSwipeItem.SwipeDirection.NONE) {
                     mSwipeView = (ListSwipeItem) swipeView;
                 }
+
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 if (mSwipeView != null) {
                     final ListSwipeItem endingSwipeView = mSwipeView;
                     endingSwipeView.handleSwipeUp(new AnimatorListenerAdapter() {
+
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            if (endingSwipeView.isSwipeStarted()) {
+                                resetSwipedViews(endingSwipeView);
+                            }
+                        }
+
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             if (endingSwipeView.isSwipeStarted()) {
